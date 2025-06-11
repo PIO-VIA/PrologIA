@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système Expert Complet - Terminal à Conteneurs</title>
+    <link rel="stylesheet" href="system.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">🚢 Port Expert AI</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">🏠 Accueil</a>
+                <a href="rules.html">📚 Règles Prolog</a>
+                <a href="#modules">📋 Modules</a>
+                <a href="#simulation">🔄 Simulation</a>
+                <a href="#results">📊 Résultats</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu Mobile -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">🏠 Accueil</a>
+        <a href="rules.html">📚 Règles Prolog</a>
+        <a href="#modules">📋 Modules</a>
+        <a href="#simulation">🔄 Simulation</a>
+        <a href="#results">📊 Résultats</a>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚢 Système Expert Complet</h1>
+            <h2>Gestion Logistique Terminal à Conteneurs</h2>
+            <p>Intelligence Artificielle pour l'optimisation des 6 modules opérationnels</p>
+        </div>
+
+        <!-- Module Selector -->
+        <div class="module-selector" id="modules">
+            <h2>📋 Sélection des Modules à Exécuter</h2>
+            <div class="modules-grid">
+                <div class="module-toggle" data-module="1">
+                    <input type="checkbox" id="module1" checked>
+                    <label for="module1">
+                        <div class="module-icon">⚓</div>
+                        <div class="module-info">
+                            <h3>Module 1 - Accostage</h3>
+                            <p>Planification et attribution des quais</p>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="module-toggle" data-module="2">
+                    <input type="checkbox" id="module2" checked>
+                    <label for="module2">
+                        <div class="module-icon">🏗️</div>
+                        <div class="module-info">
+                            <h3>Module 2 - Déchargement</h3>
+                            <p>Portiques STS et transport cour</p>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="module-toggle" data-module="3">
+                    <input type="checkbox" id="module3" checked>
+                    <label for="module3">
+                        <div class="module-icon">📦</div>
+                        <div class="module-info">
+                            <h3>Module 3 - Cour</h3>
+                            <p>Empilage et stockage intelligents</p>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="module-toggle" data-module="4">
+                    <input type="checkbox" id="module4" checked>
+                    <label for="module4">
+                        <div class="module-icon">🛂</div>
+                        <div class="module-info">
+                            <h3>Module 4 - Douane</h3>
+                            <p>Formalités et contrôles douaniers</p>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="module-toggle" data-module="5">
+                    <input type="checkbox" id="module5" checked>
+                    <label for="module5">
+                        <div class="module-icon">🚛</div>
+                        <div class="module-info">
+                            <h3>Module 5 - Chargement</h3>
+                            <p>Préparation export et chargement</p>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="module-toggle" data-module="6">
+                    <input type="checkbox" id="module6" checked>
+                    <label for="module6">
+                        <div class="module-icon">🚪</div>
+                        <div class="module-info">
+                            <h3>Module 6 - Sortie</h3>
+                            <p>Transport terrestre et contrôles</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration Simulation -->
+        <div class="simulation-config" id="simulation">
+            <h2>🔄 Configuration de la Simulation</h2>
+            
+            <div class="config-grid">
+                <!-- Configuration Navire -->
+                <div class="config-section">
+                    <h3>🚢 Données du Navire</h3>
+                    <div class="form-group">
+                        <label for="shipName">Nom du navire</label>
+                        <input type="text" id="shipName" value="MSC Kristina" placeholder="Ex: MSC Kristina">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="shipLength">Longueur (m)</label>
+                            <input type="number" id="shipLength" value="320" min="50" max="400">
+                        </div>
+                        <div class="form-group">
+                            <label for="shipDraft">Tirant d'eau (m)</label>
+                            <input type="number" id="shipDraft" value="14.5" min="5" max="20" step="0.1">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="containerCount">Nombre de conteneurs (EVP)</label>
+                        <input type="number" id="containerCount" value="3500" min="100" max="20000">
+                    </div>
+                </div>
+
+                <!-- Configuration Cargaison -->
+                <div class="config-section">
+                    <h3>📦 Configuration Cargaison</h3>
+                    <div class="form-group">
+                        <label for="cargoType">Type principal</label>
+                        <select id="cargoType">
+                            <option value="generale">Marchandise générale</option>
+                            <option value="refrigeree">Marchandise réfrigérée</option>
+                            <option value="dangereuse">Marchandise dangereuse</option>
+                            <option value="mixte">Cargaison mixte</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="percentImport">% Import</label>
+                            <input type="number" id="percentImport" value="60" min="0" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="percentExport">% Export</label>
+                            <input type="number" id="percentExport" value="30" min="0" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="percentTransbord">% Transbordement</label>
+                            <input type="number" id="percentTransbord" value="10" min="0" max="100">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conditions Opérationnelles -->
+                <div class="config-section">
+                    <h3>🌤️ Conditions Opérationnelles</h3>
+                    <div class="form-group">
+                        <label for="weather">Météo</label>
+                        <select id="weather">
+                            <option value="favorable">Favorable</option>
+                            <option value="moyenne">Moyenne</option>
+                            <option value="defavorable">Défavorable</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="priority">Priorité du navire</label>
+                        <select id="priority">
+                            <option value="normale">Normale</option>
+                            <option value="haute">Haute</option>
+                            <option value="urgente">Urgente</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="arrivalTime">Heure d'arrivée prévue</label>
+                        <input type="time" id="arrivalTime" value="08:00">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boutons de contrôle -->
+            <div class="control-buttons">
+                <button class="btn primary" onclick="executeFullSimulation()">
+                    🚀 LANCER SIMULATION COMPLÈTE
+                </button>
+                <button class="btn secondary" onclick="executeStepByStep()">
+                    📝 EXÉCUTION ÉTAPE PAR ÉTAPE
+                </button>
+                <button class="btn tertiary" onclick="resetSimulation()">
+                    🔄 RÉINITIALISER
+                </button>
+            </div>
+        </div>
+
+        <!-- Résultats de la simulation -->
+        <div class="results-container hidden" id="results">
+            <h2>📊 Résultats de la Simulation</h2>
+            
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Prêt à démarrer...</div>
+            </div>
+
+            <!-- Module Results -->
+            <div class="modules-results" id="modulesResults">
+                <!-- Les résultats des modules seront insérés dynamiquement -->
+            </div>
+
+            <!-- Summary Dashboard -->
+            <div class="summary-dashboard" id="summaryDashboard">
+                <!-- Le tableau de bord sera généré dynamiquement -->
+            </div>
+
+            <!-- Export Options -->
+            <div class="export-options">
+                <h3>📥 Options d'Export</h3>
+                <div class="export-buttons">
+                    <button class="btn secondary" onclick="exportToJSON()">
+                        📄 Exporter JSON
+                    </button>
+                    <button class="btn secondary" onclick="exportToPDF()">
+                        📑 Générer Rapport PDF
+                    </button>
+                    <button class="btn secondary" onclick="exportToCSV()">
+                        📊 Exporter CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Log Console -->
+        <div class="log-console" id="logConsole">
+            <div class="log-header">
+                <h3>🖥️ Console Prolog</h3>
+                <div class="log-controls">
+                    <button class="btn-small" onclick="clearLog()">🗑️ Effacer</button>
+                    <button class="btn-small" onclick="toggleLog()">📋 Masquer/Afficher</button>
+                </div>
+            </div>
+            <div class="log-content" id="logContent">
+                <div class="log-entry info">
+                    <span class="timestamp">Système prêt</span>
+                    <span class="message">🚢 Système Expert Terminal à Conteneurs initialisé</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour les détails -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Détails du Module</h3>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-content" id="modalContent">
+                <!-- Contenu dynamique -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="prolog-complete.js"></script>
+    <script src="system.js"></script>
+</body>
+</html>
+
+

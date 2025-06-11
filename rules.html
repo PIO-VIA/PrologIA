@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Règles Prolog - Système Expert Terminal</title>
+    <link rel="stylesheet" href="rules.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">🚢 Port Expert AI</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">🏠 Accueil</a>
+                <a href="system.html">🖥️ Système</a>
+                <a href="#modules">📋 Modules</a>
+                <a href="#facts">💾 Faits</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu Mobile -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">🏠 Accueil</a>
+        <a href="system.html">🖥️ Système</a>
+        <a href="#modules">📋 Modules</a>
+        <a href="#facts">💾 Faits</a>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📚 Base de Connaissances Prolog</h1>
+            <h2>Règles et Faits du Système Expert</h2>
+            <p>Documentation complète des 6 modules avec toutes les règles d'inférence</p>
+        </div>
+
+        <!-- Navigation des modules -->
+        <div class="module-nav">
+            <h2>🧭 Navigation Rapide</h2>
+            <div class="nav-grid">
+                <a href="#facts" class="nav-item">
+                    <div class="nav-icon">💾</div>
+                    <span>Faits du Port</span>
+                </a>
+                <a href="#module1" class="nav-item">
+                    <div class="nav-icon">⚓</div>
+                    <span>Module 1 - Accostage</span>
+                </a>
+                <a href="#module2" class="nav-item">
+                    <div class="nav-icon">🏗️</div>
+                    <span>Module 2 - Déchargement</span>
+                </a>
+                <a href="#module3" class="nav-item">
+                    <div class="nav-icon">📦</div>
+                    <span>Module 3 - Cour</span>
+                </a>
+                <a href="#module4" class="nav-item">
+                    <div class="nav-icon">🛂</div>
+                    <span>Module 4 - Douane</span>
+                </a>
+                <a href="#module5" class="nav-item">
+                    <div class="nav-icon">🚛</div>
+                    <span>Module 5 - Chargement</span>
+                </a>
+                <a href="#module6" class="nav-item">
+                    <div class="nav-icon">🚪</div>
+                    <span>Module 6 - Sortie</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Faits du Port -->
+        <section class="rules-section" id="facts">
+            <h2>💾 Faits du Port - Base de Connaissances Statique</h2>
+            <p class="section-description">
+                Faits fondamentaux décrivant l'infrastructure et les ressources du Port Autonome de Kribi
+            </p>
+
+            <div class="subsection">
+                <h3>🏗️ Infrastructure Portuaire</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Quais disponibles</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Quais : quai(Nom, Longueur, TirantDEauMax)
+quai(quai1, 350, 14).
+quai(quai2, 350, 12).
+quai(quai3, 200, 10).</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Portiques STS (Ship-to-Shore)</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Portiques : portique(Nom, Capacite, Statut)
+portique(portique1, 50, disponible).
+portique(portique2, 50, disponible).
+portique(portique3, 40, occupe).
+portique(portique4, 30, occupe).</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Zones de stockage</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Zones : zone_stockage(ID, Type, CapaciteRestante, ConnexionElectrique)
+zone_stockage(bloc1, export, 80, non).
+zone_stockage(bloc2, import, 90, non).
+zone_stockage(bloc3, transbordement, 100, non).
+zone_stockage(bloc4, refrigere, 50, oui).
+zone_stockage(bloc5, dangereux, 60, non).</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Grues RTG et véhicules</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Grues RTG : grue_rtg(Nom, Capacite, Statut)
+grue_rtg(rtg1, 25, disponible).
+grue_rtg(rtg2, 25, disponible).
+grue_rtg(rtg3, 20, occupe).
+
+% Véhicules internes : vehicule(Nom, Type, Statut)
+vehicule(tracteur1, tracteur, disponible).
+vehicule(tracteur2, tracteur, occupe).
+vehicule(agv1, agv, disponible).
+vehicule(agv2, agv, disponible).</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 1 - Accostage -->
+        <section class="rules-section" id="module1">
+            <h2>⚓ Module 1 - Accostage</h2>
+            <p class="section-description">
+                Planification et attribution des quais selon les contraintes physiques et météorologiques
+            </p>
+
+            <div class="subsection">
+                <h3>🎯 Règles Principales</h3>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R1 : Compatibilité Quai</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Un quai est compatible si sa longueur et son tirant d'eau sont suffisants
+quai_compatible(Navire, Quai) :-
+    navire(Navire, LongueurNavire, TirantNavire, _, _, _),
+    quai(Quai, LongueurQuai, TirantQuai),
+    LongueurQuai >= LongueurNavire,
+    TirantQuai >= TirantNavire,
+    \+ occupe(Quai, _).</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R2 : Conditions Météorologiques</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Vérifier si le navire peut accoster (météo OK)
+peut_accoster(Navire, Vent) :-
+    Vent < 50,
+    write('Le navire '), write(Navire), write(' peut accoster.'), nl.
+
+% Report d'accostage en cas de météo défavorable
+reporter_accostage(Navire) :-
+    meteo(Navire, defavorable),
+    write('Accostage reporté pour '), write(Navire), write(' (météo défavorable).'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R3 : Priorité des Navires</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Vérifier la priorité basée sur les EVP
+priorite_navire(Navire1, Navire2) :-
+    navire(Navire1, _, _, EVP1, _, _),
+    navire(Navire2, _, _, EVP2, _, _),
+    EVP1 > EVP2,
+    write(Navire1), write(' a la priorité sur '), write(Navire2), write('.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R4 : Réservation Stockage Spécialisé</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Réserver un bloc de stockage pour conteneurs réfrigérés
+reserver_stockage_refrigere(Navire) :-
+    navire(Navire, _, _, _, PourcentRefrigeres, _),
+    PourcentRefrigeres > 0,
+    stockage(bloc_refrigere, disponible),
+    write('Bloc réfrigéré réservé pour '), write(Navire), write('.'), nl.
+
+% Réserver un bloc pour marchandises dangereuses
+reserver_stockage_dangereux(Navire) :-
+    navire(Navire, _, _, _, _, PourcentDangereux),
+    PourcentDangereux > 0,
+    stockage(bloc_dangereux, disponible),
+    write('Bloc dangereux réservé pour '), write(Navire), write('.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Règle Principale - Planification Accostage</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Planifier l'accostage complet
+planifier_accostage(Navire, Vent) :-
+    peut_accoster(Navire, Vent),
+    quai_compatible(Navire, Quai),
+    (Quai \= aucun ->
+        (reserver_stockage_refrigere(Navire),
+         reserver_stockage_dangereux(Navire),
+         notifier_douanes(Navire),
+         write('Attribution : '), write(Navire), write(' au '), write(Quai), write('.'), nl)
+    ;   true).</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 2 - Déchargement -->
+        <section class="rules-section" id="module2">
+            <h2>🏗️ Module 2 - Déchargement</h2>
+            <p class="section-description">
+                Gestion des portiques STS, inspection des conteneurs et enregistrement TOS
+            </p>
+
+            <div class="subsection">
+                <h3>🎯 Règles Principales</h3>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R1 : Attribution Portique STS</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Assigner un portique disponible pour le déchargement
+portique_disponible(Navire, Portique) :-
+    portique(Portique, _, disponible),
+    write('Portique '), write(Portique), write(' assigné pour décharger '), write(Navire), write('.'), nl.
+
+% Gestion absence de portique
+portique_disponible(Navire, aucun) :-
+    \+ (portique(_, _, disponible)),
+    write('Aucun portique disponible pour décharger '), write(Navire), write('.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R2 : Inspection Conteneurs</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Inspecter un conteneur pour détecter les anomalies
+inspecter_conteneur(Conteneur, Navire) :-
+    conteneur(Conteneur, Navire, Type, Etat),
+    (Etat = endommage ->
+        write('Alerte : Conteneur '), write(Conteneur), write(' de type '), write(Type), write(' est endommagé !'), nl
+    ; Etat = fuite ->
+        write('Alerte critique : Conteneur '), write(Conteneur), write(' de type '), write(Type), write(' présente une fuite !'), nl
+    ; write('Conteneur '), write(Conteneur), write(' de type '), write(Type), write(' est intact.'), nl).</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R3 : Enregistrement TOS</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Enregistrer un conteneur dans le TOS
+enregistrer_tos(Conteneur, Navire) :-
+    conteneur(Conteneur, Navire, Type, Etat),
+    assertz(enregistre_tos(Conteneur, Navire, Type, Etat)),
+    write('Conteneur '), write(Conteneur), write(' enregistré dans le TOS.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R4 : Attribution Véhicule Interne</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Assigner un véhicule interne pour transporter le conteneur
+vehicule_disponible(Conteneur, Vehicule) :-
+    conteneur(Conteneur, _, _, _),
+    vehicule(Vehicule, _, disponible),
+    write('Véhicule '), write(Vehicule), write(' assigné pour transporter '), write(Conteneur), write('.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R5 : Calcul Temps Déchargement</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Calculer le temps estimé de déchargement
+temps_dechargement(Navire, Temps) :-
+    navire(Navire, _, _, EVP, _, _),
+    portique(Portique, Capacite, disponible),
+    Temps is EVP / Capacite,
+    write('Temps estimé pour décharger '), write(Navire), write(' : '), write(Temps), write(' heures.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Règle Principale - Déchargement Complet</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Décharger un navire complet
+decharger_navire(Navire) :-
+    portique_disponible(Navire, Portique),
+    (Portique \= aucun ->
+        (temps_dechargement(Navire, _),
+         findall(Conteneur, conteneur(Conteneur, Navire, _, _), Conteneurs),
+         decharger_conteneurs(Conteneurs, Navire),
+         write('Déchargement de '), write(Navire), write(' terminé.'), nl)
+    ;   write('Déchargement de '), write(Navire), write(' impossible : aucun portique disponible.'), nl).</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 3 - Cour -->
+        <section class="rules-section" id="module3">
+            <h2>📦 Module 3 - Cour (Stockage)</h2>
+            <p class="section-description">
+                Empilage stratégique et gestion des zones de stockage avec grues RTG
+            </p>
+
+            <div class="subsection">
+                <h3>🎯 Règles Principales</h3>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R1 : Sélection Zone Compatible</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Sélectionner une zone de stockage compatible
+zone_compatible(Conteneur, Bloc) :-
+    conteneur(Conteneur, _, Type, _, Destination),
+    zone_stockage(Bloc, TypeZone, Capacite, Connexion),
+    Capacite > 0,
+    (Type = refrigere -> Connexion = oui ; true),
+    (Type = dangereux -> TypeZone = dangereux ; TypeZone = Destination),
+    write('Zone '), write(Bloc), write(' sélectionnée pour '), write(Conteneur), write('.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R2 : Vérification Hauteur Empilage</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Vérifier la hauteur d'empilage dans une position (max 5)
+hauteur_valide(Bloc, Rangée, Colonne, Hauteur) :-
+    findall(H, position_occupee(Bloc, [Rangée, Colonne, H]), Hauteurs),
+    length(Hauteurs, Count),
+    Count < 5,  % Hauteur max. 5
+    Hauteur is Count + 1,
+    write('Position '), write(Rangée), write('-'), write(Colonne), write('-'), write(Hauteur), write(' valide dans '), write(Bloc), write('.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R3 : Attribution Grue RTG</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Assigner une grue RTG pour empiler
+grue_disponible(Conteneur, Grue) :-
+    conteneur(Conteneur, _, _, _, _),
+    grue_rtg(Grue, _, disponible),
+    write('Grue '), write(Grue), write(' assignée pour empiler '), write(Conteneur), write('.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R4 : Mise à jour TOS Localisation</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Mettre à jour le TOS avec la localisation
+enregistrer_localisation(Conteneur, Bloc, Position) :-
+    assertz(localisation_tos(Conteneur, Bloc, Position)),
+    assertz(position_occupee(Bloc, Position)),
+    write('Conteneur '), write(Conteneur), write(' enregistré dans le TOS à '), write(Bloc), write(' position '), write(Position), write('.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R5 : Gestion Capacité Zone</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Réduire la capacité de la zone
+reduire_capacite(Bloc) :-
+    zone_stockage(Bloc, Type, Capacite, Connexion),
+    Capacite > 0,
+    NouvelleCapacite is Capacite - 1,
+    retract(zone_stockage(Bloc, Type, Capacite, Connexion)),
+    assertz(zone_stockage(Bloc, Type, NouvelleCapacite, Connexion)),
+    write('Capacité de '), write(Bloc), write(' réduite à '), write(NouvelleCapacite), write('.'), nl.</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 4 - Douane -->
+        <section class="rules-section" id="module4">
+            <h2>🛂 Module 4 - Douane</h2>
+            <p class="section-description">
+                Traitement administratif, vérification documents et gestion inspections
+            </p>
+
+            <div class="subsection">
+                <h3>🎯 Règles Principales</h3>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R1 : Vérification Documents CAMCIS</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Vérifier la validité des documents
+verifier_documents(Conteneur) :-
+    document(Conteneur, connaissement, oui),
+    document(Conteneur, declaration_douaniere, oui),
+    write('Documents pour '), write(Conteneur), write(' valides (CAMCIS).'), nl.
+
+% Gestion documents invalides
+verifier_documents(Conteneur) :-
+    (document(Conteneur, connaissement, non) ; document(Conteneur, declaration_douaniere, non)),
+    write('Documents pour '), write(Conteneur), write(' invalides. Traitement bloqué.'), nl,
+    fail.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R2 : Inspection Physique Requise</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Déterminer si une inspection physique est requise
+requiert_inspection(Conteneur) :-
+    conteneur(Conteneur, _, Type, Etat, _),
+    (Type = dangereux ; Etat = endommage ; Etat = fuite),
+    assertz(statut_douanier(Conteneur, inspection_requise)),
+    write('Inspection physique requise pour '), write(Conteneur), write(' (type ou état critique).'), nl.
+
+% Inspection aléatoire (simulée pour 10% des conteneurs standards)
+requiert_inspection(Conteneur) :-
+    conteneur(Conteneur, _, standard, intact, _),
+    random(1, 11, Num),
+    Num = 1,
+    assertz(statut_douanier(Conteneur, inspection_requise)),
+    write('Inspection physique aléatoire requise pour '), write(Conteneur), write('.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R3 : Approbation Douanière</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Approuver si pas d'inspection requise
+approuver_douane(Conteneur) :-
+    conteneur(Conteneur, _, standard, intact, _),
+    \+ requiert_inspection(Conteneur),
+    assertz(statut_douanier(Conteneur, approuve)),
+    write('Conteneur '), write(Conteneur), write(' approuvé sans inspection.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R4 : Vérification Taxes</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Vérifier le paiement des taxes
+verifier_taxes(Conteneur) :-
+    taxe(Conteneur, paye),
+    write('Taxes payées pour '), write(Conteneur), write('.'), nl.
+
+% Gestion taxes non payées
+verifier_taxes(Conteneur) :-
+    taxe(Conteneur, non_paye),
+    write('Taxes non payées pour '), write(Conteneur), write('. Traitement bloqué.'), nl,
+    fail.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R5 : Attribution Transitaire</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Assigner un transitaire
+assigner_transitaire(Conteneur, Transitaire) :-
+    transitaire(Transitaire, disponible),
+    write('Transitaire '), write(Transitaire), write(' assigné pour '), write(Conteneur), write('.'), nl.</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 5 - Chargement -->
+        <section class="rules-section" id="module5">
+            <h2>🚛 Module 5 - Chargement</h2>
+            <p class="section-description">
+                Préparation et chargement des conteneurs d'export avec optimisation stabilité
+            </p>
+
+            <div class="subsection">
+                <h3>🎯 Règles Principales</h3>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R1 : Éligibilité Conteneur Chargement</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Vérifier l'éligibilité d'un conteneur pour le chargement
+conteneur_eligible(Conteneur, NavireCible) :-
+    conteneur(Conteneur, _, Type, Etat, Destination),
+    localisation_tos(Conteneur, _, _),
+    (Destination = export ; Destination = transbordement),
+    document(Conteneur, connaissement, oui),
+    document(Conteneur, declaration_douaniere, oui),
+    taxe(Conteneur, paye),
+    scelle(Conteneur, intact),
+    navire(NavireCible, _, _, _, _, _, EVPRestant),
+    EVPRestant > 0,
+    write('Conteneur '), write(Conteneur), write(' éligible pour chargement sur '), write(NavireCible), write('.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R2 : Plan de Chargement</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Ordonner les conteneurs par priorité pour la stabilité
+ordonner_conteneurs(Conteneurs, ConteneursOrdonnes) :-
+    findall(Prio-Conteneur, (
+        member(Conteneur, Conteneurs),
+        conteneur(Conteneur, _, Type, _, Destination),
+        priorite_chargement(Type, Destination, Prio)
+    ), PrioConteneurs),
+    sort(PrioConteneurs, PrioConteneursOrdonnes),
+    reverse(PrioConteneursOrdonnes, PrioConteneursInverses),
+    findall(Conteneur, member(_-Conteneur, PrioConteneursInverses), ConteneursOrdonnes).</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R3 : Temps de Chargement</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Calculer le temps estimé de chargement
+temps_chargement(NavireCible, Conteneurs, Temps) :-
+    length(Conteneurs, NombreConteneurs),
+    portique(Portique, Capacite, disponible),
+    Temps is NombreConteneurs / Capacite,
+    write('Temps estimé pour charger '), write(NavireCible), write(' : '), write(Temps), write(' heures.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R4 : Gestion Capacité Navire</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Mettre à jour la capacité du navire
+reduire_capacite_navire(NavireCible) :-
+    navire(NavireCible, Longueur, TirantDEau, EVPTotal, PourcentRefrigeres, PourcentDangereux, EVPRestant),
+    EVPRestant > 0,
+    NouveauEVPRestant is EVPRestant - 1,
+    retract(navire(NavireCible, Longueur, TirantDEau, EVPTotal, PourcentRefrigeres, PourcentDangereux, EVPRestant)),
+    assertz(navire(NavireCible, Longueur, TirantDEau, EVPTotal, PourcentRefrigeres, PourcentDangereux, NouveauEVPRestant)),
+    write('Capacité restante de '), write(NavireCible), write(' : '), write(NouveauEVPRestant), write(' EVP.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Priorités de Chargement</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Faits sur la priorité de chargement (pour stabilité et destination)
+priorite_chargement(dangereux, transbordement, 4).
+priorite_chargement(dangereux, export, 3).
+priorite_chargement(refrigere, transbordement, 2).
+priorite_chargement(refrigere, export, 1).
+priorite_chargement(standard, transbordement, 1).
+priorite_chargement(standard, export, 0).</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 6 - Sortie -->
+        <section class="rules-section" id="module6">
+            <h2>🚪 Module 6 - Sortie du Port</h2>
+            <p class="section-description">
+                Transport terrestre et gestion des flux aux portes du port
+            </p>
+
+            <div class="subsection">
+                <h3>🎯 Règles Principales</h3>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R1 : Éligibilité Sortie</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Vérifier l'éligibilité d'un conteneur pour la sortie
+conteneur_eligible_sortie(Conteneur) :-
+    conteneur(Conteneur, _, _, _, import),
+    localisation_tos(Conteneur, _, _),
+    document(Conteneur, connaissement, oui),
+    document(Conteneur, declaration_douaniere, oui),
+    taxe(Conteneur, paye),
+    scelle(Conteneur, intact),
+    write('Conteneur '), write(Conteneur), write(' éligible pour sortie.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R2 : Attribution Transporteur</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Assigner un transporteur pour le conteneur
+assigner_transporteur(Conteneur, Transporteur) :-
+    conteneur(Conteneur, _, _, _, _),
+    transporteur(Transporteur, _, disponible, Capacite),
+    Capacite > 0,
+    write('Transporteur '), write(Transporteur), write(' assigné pour '), write(Conteneur), write('.'), nl.
+
+% Mettre à jour la capacité du transporteur
+reduire_capacite_transporteur(Transporteur) :-
+    transporteur(Transporteur, Type, Statut, Capacite),
+    Capacite > 0,
+    NouvelleCapacite is Capacite - 1,
+    retract(transporteur(Transporteur, Type, Statut, Capacite)),
+    assertz(transporteur(Transporteur, Type, Statut, NouvelleCapacite)),
+    write('Capacité de '), write(Transporteur), write(' réduite à '), write(NouvelleCapacite), write('.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R3 : Gestion Portes</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Sélectionner une porte non congestionnée
+porte_disponible(Conteneur, Porte) :-
+    porte(Porte, disponible, ConteneursEnAttente),
+    ConteneursEnAttente < 5,  % Seuil de congestion
+    write('Porte '), write(Porte), write(' sélectionnée pour '), write(Conteneur), write('.'), nl.
+
+% Mettre à jour la congestion de la porte
+augmenter_congestion(Porte) :-
+    porte(Porte, Statut, ConteneursEnAttente),
+    NouveauConteneursEnAttente is ConteneursEnAttente + 1,
+    (NouveauConteneursEnAttente >= 5 ->
+        NouveauStatut = congeste
+    ;   NouveauStatut = disponible),
+    retract(porte(Porte, Statut, ConteneursEnAttente)),
+    assertz(porte(Porte, NouveauStatut, NouveauConteneursEnAttente)),
+    write('Congestion de '), write(Porte), write(' mise à jour : '), write(NouveauConteneursEnAttente), write(' conteneurs.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>R4 : Estimation Temps Sortie</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Estimer le temps de sortie
+temps_sortie(Conteneur, Temps) :-
+    Temps = 0.5,  % 30 minutes = 0.5 heure
+    write('Temps estimé pour la sortie de '), write(Conteneur), write(' : '), write(Temps), write(' heures.'), nl.</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Règle Principale - Sortie Complète</span>
+                        <button onclick="copyCode(this)" class="copy-btn">📋 Copier</button>
+                    </div>
+                    <pre><code>% Gérer la sortie complète d'un conteneur
+sortir_port(Conteneur) :-
+    conteneur_eligible_sortie(Conteneur),
+    assigner_transporteur(Conteneur, Transporteur),
+    (Transporteur \= aucun ->
+        (porte_disponible(Conteneur, Porte),
+         (Porte \= aucun ->
+             (temps_sortie(Conteneur, _),
+              reduire_capacite_transporteur(Transporteur),
+              augmenter_congestion(Porte),
+              retract(localisation_tos(Conteneur, _, _)),
+              assertz(statut_sortie(Conteneur, sorti)),
+              write('Conteneur '), write(Conteneur), write(' sorti via '), write(Transporteur), write(' à la porte '), write(Porte), write('.'), nl)
+         ;   assertz(statut_sortie(Conteneur, en_attente)),
+             write('Sortie de '), write(Conteneur), write(' impossible : aucune porte disponible.'), nl))
+    ;   assertz(statut_sortie(Conteneur, en_attente)),
+        write('Sortie de '), write(Conteneur), write(' impossible : aucun transporteur disponible.'), nl).</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <h2>📊 Statistiques de la Base de Connaissances</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Modules Prolog</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Règles d'Inférence</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Faits du Port</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Coverage Logistique</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>📚 Documentation Technique</h3>
+                    <p>Base de connaissances complète du système expert pour la gestion logistique du terminal à conteneurs.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">🏠 Accueil</a></li>
+                        <li><a href="system.html">🖥️ Système Expert</a></li>
+                        <li><a href="#facts">💾 Faits du Port</a></li>
+                        <li><a href="#modules">📋 Modules</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>École ENSPY</h4>
+                    <p>École Nationale Supérieure Polytechnique de Yaoundé</p>
+                    <p>Système Formel et IA - 2025</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="rules.js"></script>
+</body>
+</html>
