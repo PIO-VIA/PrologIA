@@ -5,7 +5,7 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg)
 ![License](https://img.shields.io/badge/license-Academic-green.svg)
 
-**Intelligence Artificielle complète pour la Planification Portuaire**
+**Intelligence Artificielle complète pour la Planification Portuaire.**
 
 ---
 
