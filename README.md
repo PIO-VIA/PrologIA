@@ -50,7 +50,7 @@ systeme-expert-complet/
 ## ⚡ Installation Rapide
 
 ### Prérequis
-- 🌐 Navigateur web moderne (Chrome, Firefox, Safari, Edge)
+- 🌐 Navigateur web moderne (Chrome, Mozilla Firefox, Safari, Edge)
 - 📁 Aucune installation supplémentaire requise
 
 ### 🚀 Démarrage
